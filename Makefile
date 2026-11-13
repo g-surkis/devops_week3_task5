@@ -20,3 +20,6 @@ windows:
 
 macos:
 	make build ARCH=darwin/$(CPU)
+
+clean:
+	-docker rmi ${IMAGE_TAG}
