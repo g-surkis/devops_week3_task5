@@ -1,9 +1,12 @@
-FROM quay.io/projectquay/golang:1.22 AS builder
-
+FROM --platform=$BUILDPLATFORM quay.io/projectquay/golang:1.22 AS builder
 ARG TARGETARCH
+ARG TARGETOS
+
+RUN echo "I am running on $BUILDPLATFORM, building for $TARGETARCH" > /log
+
 WORKDIR /go/src/app
 COPY . .
-RUN make build
+RUN make build ARCH=${TARGETOS}/${TARGETARCH}
 
 
 FROM scratch
